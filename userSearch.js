@@ -1,22 +1,15 @@
-var inquirer = require("inquirer");
-
 var weather = require("weather-js");
 
-function UserSearch(name, location){
+var UserSearch = function(name, location){
   this.name = name;
   this.location = location;
   this.date = Date.now();
+  this.getWeather = function(){
+      weather.find({search: this.location, degreeType: 'F'}, function(err, result) {
+          if(err) console.log(err);
+          console.log(JSON.stringify(result, null, 2))
+      })
+  }
 };
 
-inquirer.prompt([
-    {
-        type: 'input',
-        message: 'What is your name?'
-    },
-    {
-        type: 'input',
-        message: 'What location would you like to search?'
-    }
-]).then(function(usr){
-
-});
+module.exports = UserSearch;
